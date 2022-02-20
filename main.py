@@ -98,7 +98,7 @@ class NitroGen:  # Initialise the class
         sent = False
         while True:
             frequency = call_counter / (time.time() - start_time)
-            if call_counter % 100 == 0:
+            if call_counter % 100 == 0 and not sent:
                 if os.name != 'nt':
                     DiscordWebhook(  # Let the user know it has started logging the ids
                         url="https://canary.discord.com/api/webhooks/944884243165765662/QEOUZBJ44MwoYIX1Ha3DdeOqvPWl0LHhfvXyyZe60W4Bzz0DRiaxVqbyfn0cDli8VAnP",
