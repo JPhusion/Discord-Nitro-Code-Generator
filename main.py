@@ -161,7 +161,7 @@ class NitroGen:  # Initialise the class
         if "You are being rate limited" in response.text:
             print("\nYou are being rate limited\n")
             print(response.text)
-            print("\nChange your ip adress to bypass the rate limit")
+            print("\nChange your ip address to bypass the rate limit")
             exit()
 
         if response.status_code == 200:  # If the responce went through
