@@ -2,7 +2,6 @@ import ctypes
 import string
 import os
 import time
-import keyboard
 import getpass
 
 try:
@@ -130,8 +129,6 @@ class NitroGen:  # Initialise the class
                         # Tell the user an error occurred
                         print(f" Error | {url} ", e)
 
-                    if keyboard.is_pressed('ctrl+q'):
-                        exit()
                     if os.name == "nt":  # If the system is windows
                         ctypes.windll.kernel32.SetConsoleTitleW(
                             f"{len(valid)} Valid | {invalid} Invalid")  # Change the title
