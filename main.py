@@ -121,6 +121,8 @@ class NitroGen:  # Initialise the class
 
                         if result == "rate-limited":
                             sent = True
+                            break
+                        
                         else:
                             sent = False
                         
