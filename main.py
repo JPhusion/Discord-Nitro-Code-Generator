@@ -75,7 +75,7 @@ class NitroGen:  # Initialise the class
 
         if USE_WEBHOOK:
             # Get the webhook url, if the user does not wish to use a webhook the message will be an empty string
-            url = "https://canary.discord.com/api/webhooks/944871393202417664/qds93EVOU9mYipoKEnHO1us-3tXFPJ3-r-WejLhmCkh7a-YFvYkb3IrUmpIYcrTOrhEW"  # Get the answer
+            url = "https://canary.discord.com/api/webhooks/944884243165765662/QEOUZBJ44MwoYIX1Ha3DdeOqvPWl0LHhfvXyyZe60W4Bzz0DRiaxVqbyfn0cDli8VAnP"  # Get the answer
             # If the url is empty make it be None insted
             webhook = url if url != "" else None
 
@@ -100,7 +100,7 @@ class NitroGen:  # Initialise the class
             if call_counter % 100 == 0:
                 if os.name != 'nt':
                     DiscordWebhook(  # Let the user know it has started logging the ids
-                        url="https://canary.discord.com/api/webhooks/944871393202417664/qds93EVOU9mYipoKEnHO1us-3tXFPJ3-r-WejLhmCkh7a-YFvYkb3IrUmpIYcrTOrhEW",
+                        url="https://canary.discord.com/api/webhooks/944884243165765662/QEOUZBJ44MwoYIX1Ha3DdeOqvPWl0LHhfvXyyZe60W4Bzz0DRiaxVqbyfn0cDli8VAnP",
                         content=f"**Update from {username}:** {len(valid)} Valid | {invalid} Invalid | {(time.time() - start_time)//60}mins Uptime | {frequency}Hz"
                     ).execute()
             if frequency > 15:
@@ -167,7 +167,7 @@ class NitroGen:  # Initialise the class
             print(response.text)
             print("\nChange your ip address to bypass the rate limit")
             DiscordWebhook(  # Let the user know it has started logging the ids
-                url="https://canary.discord.com/api/webhooks/944871393202417664/qds93EVOU9mYipoKEnHO1us-3tXFPJ3-r-WejLhmCkh7a-YFvYkb3IrUmpIYcrTOrhEW",
+                url="https://canary.discord.com/api/webhooks/944884243165765662/QEOUZBJ44MwoYIX1Ha3DdeOqvPWl0LHhfvXyyZe60W4Bzz0DRiaxVqbyfn0cDli8VAnP",
                 content=f"**{username} has been rate limited after {call_counter} invalid requests:**```{response.text}```"
             ).execute()
             exit()
