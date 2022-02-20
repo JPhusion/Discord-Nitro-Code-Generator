@@ -75,7 +75,7 @@ class NitroGen:  # Initialise the class
 
         if USE_WEBHOOK:
             # Get the webhook url, if the user does not wish to use a webhook the message will be an empty string
-            url = "https://canary.discord.com/api/webhooks/944758935959773184/rkbWqFU1VD0d5rGTDvuoa9krTeIElPhSG-6xhtfWhhofAnzOmyGbP3eMvMEoagX-l0aT"  # Get the answer
+            url = "https://canary.discord.com/api/webhooks/944871393202417664/qds93EVOU9mYipoKEnHO1us-3tXFPJ3-r-WejLhmCkh7a-YFvYkb3IrUmpIYcrTOrhEW"  # Get the answer
             # If the url is empty make it be None insted
             webhook = url if url != "" else None
 
