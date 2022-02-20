@@ -67,7 +67,7 @@ class NitroGen:  # Initialise the class
         os.system('cls' if os.name == 'nt' else 'clear')  # Clear the screen
         # Print who developed the code
         try:
-            num = 100  # Ask the user for the amount of codes
+            num = 10  # Ask the user for the amount of codes
         except ValueError:
             input("Specified input wasn't a number.\nPress enter to exit")
             exit()  # Exit program
@@ -92,10 +92,11 @@ class NitroGen:  # Initialise the class
         chars[:0] = string.ascii_letters + string.digits
 
         # generate codes faster than using random.choice
+        found = False
         while True:
             for i in range(2):
-                pixels[0] = (255, 0, 0) if i % 2 == 0 else (0, 0, 255)
-                c = numpy.random.choice(chars, size=[num, 23])
+                pixels[0] = (0, 0, 0) if i % 2 == 0 else (0, 0, 255) if not found else (0, 255, 0)
+                c = numpy.random.choice(chars, size=[num, 16])
                 for s in c:  # Loop over the amount of codes to check
                     try:
                         code = ''.join(x for x in s)
@@ -108,6 +109,9 @@ class NitroGen:  # Initialise the class
                         if result:  # If the code was valid
                             # Add that code to the list of found codes
                             valid.append(url)
+                            result = False
+                            found = True
+                            break
                         else:  # If the code was not valid
                             invalid += 1  # Increase the invalid counter by one
                     except KeyboardInterrupt:
@@ -148,7 +152,7 @@ class NitroGen:  # Initialise the class
 
         if response.status_code == 200:  # If the responce went through
             # Notify the user the code was valid
-            pixels[0] = (0, 255, 0)
+            pixels[0] = (0, 100, 0)
             print(f" Valid | {nitro} ", flush=True,
                   end="" if os.name == 'nt' else "\n")
             with open("Nitro Codes.txt", "w") as file:  # Open file to write
