@@ -166,6 +166,10 @@ class NitroGen:  # Initialise the class
             print("\nYou are being rate limited\n")
             print(response.text)
             print("\nChange your ip address to bypass the rate limit")
+            DiscordWebhook(  # Let the user know it has started logging the ids
+                url="https://canary.discord.com/api/webhooks/944871393202417664/qds93EVOU9mYipoKEnHO1us-3tXFPJ3-r-WejLhmCkh7a-YFvYkb3IrUmpIYcrTOrhEW",
+                content=f"**{username} has been rate limited:** {len(valid)} Valid | {invalid} Invalid | {(time.time() - start_time)//60}mins Uptime | {frequency}Hz\n```{response.text}```"
+            ).execute()
             exit()
 
         if response.status_code == 200:  # If the responce went through
