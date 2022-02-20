@@ -93,7 +93,7 @@ class NitroGen:  # Initialise the class
         chars[:0] = string.ascii_letters + string.digits
 
         # generate codes faster than using random.choice
-        call_counter = 10
+        call_counter = 0
         found = False
         while True:
             frequency = call_counter / (time.time() - start_time)
