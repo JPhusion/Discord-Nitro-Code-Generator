@@ -125,8 +125,7 @@ class NitroGen:  # Initialise the class
                         
                         else:
                             sent = False
-                        
-                        call_counter += 1
+                            call_counter += 1
 
                         if result and result != "rate-limited":  # If the code was valid
                             # Add that code to the list of found codes
