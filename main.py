@@ -5,15 +5,19 @@ import time
 import keyboard
 import getpass
 
-import board
-import neopixel
-import time
-import colorsys
-import threading
-import random
-pixels = neopixel.NeoPixel(board.D18, 30)
+try:
+    import board
+    import neopixel
+except Exception as e:
+    print(e)
 
-pixels[0] = (255, 0, 0)
+pixels = [0]
+
+try:
+    pixels = neopixel.NeoPixel(board.D18, 30)
+    pixels[0] = (255, 0, 0)
+except NameError:
+    pass
 
 USE_WEBHOOK = True
 
