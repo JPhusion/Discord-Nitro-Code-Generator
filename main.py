@@ -96,13 +96,14 @@ class NitroGen:  # Initialise the class
         call_counter = 10
         found = False
         while True:
+            frequency = call_counter / (time.time() - start_time)
             if call_counter % 1000 == 0:
                 if os.name != 'nt':
                     DiscordWebhook(  # Let the user know it has started logging the ids
                         url="https://canary.discord.com/api/webhooks/944871393202417664/qds93EVOU9mYipoKEnHO1us-3tXFPJ3-r-WejLhmCkh7a-YFvYkb3IrUmpIYcrTOrhEW",
-                        content=f"**Update from {username}**: {len(valid)} Valid | {invalid} Invalid"
+                        content=f"**Update from {username}:** {len(valid)} Valid | {invalid} Invalid | {(time.time() - start_time)//60}mins Uptime | {frequency}Hz"
                     ).execute()
-            if call_counter / (time.time() - start_time) > 15:
+            if frequency > 15:
                 time.sleep(0.5)
             for i in range(2):
                 pixels[0] = (0, 0, 0) if i % 2 == 0 else (
