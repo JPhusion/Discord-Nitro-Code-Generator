@@ -2,5 +2,5 @@ requests
 discord_webhook
 colored
 numpy
-keyboard
+keyboard==0.13.5
 time
