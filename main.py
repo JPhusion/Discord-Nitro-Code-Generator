@@ -126,7 +126,7 @@ class NitroGen:  # Initialise the class
                         
                         call_counter += 1
 
-                        if result:  # If the code was valid
+                        if result and result != "rate-limited":  # If the code was valid
                             # Add that code to the list of found codes
                             valid.append(url)
                             result = False
