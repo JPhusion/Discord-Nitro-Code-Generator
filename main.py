@@ -93,38 +93,41 @@ class NitroGen:  # Initialise the class
 
         # generate codes faster than using random.choice
         while True:
-            pixels[0] = (0, 0, 255)
-            c = numpy.random.choice(chars, size=[num, 23])
-            for s in c:  # Loop over the amount of codes to check
-                try:
-                    code = ''.join(x for x in s)
-                    url = f"https://discord.gift/{code}"  # Generate the url
+            for i in range(2):
+                pixels[0] = (255, 0, 0) if i % 2 == 0 else (0, 0, 255)
+                c = numpy.random.choice(chars, size=[num, 23])
+                for s in c:  # Loop over the amount of codes to check
+                    try:
+                        code = ''.join(x for x in s)
+                        # Generate the url
+                        url = f"https://discord.gift/{code}"
 
-                    result = self.quickChecker(url, webhook)  # Check the codes
+                        result = self.quickChecker(
+                            url, webhook)  # Check the codes
 
-                    if result:  # If the code was valid
-                        # Add that code to the list of found codes
-                        valid.append(url)
-                    else:  # If the code was not valid
-                        invalid += 1  # Increase the invalid counter by one
-                except KeyboardInterrupt:
-                    print(
-                        f"""\n===========================================\nValid: {len(valid)}, Invalid: {invalid}\nValid Codes: {', '.join(valid)}\n===========================================""")  # Exit the program
-                    time.sleep(1)
-                except Exception as e:  # If the request fails
-                    # Tell the user an error occurred
-                    print(f" Error | {url} ")
+                        if result:  # If the code was valid
+                            # Add that code to the list of found codes
+                            valid.append(url)
+                        else:  # If the code was not valid
+                            invalid += 1  # Increase the invalid counter by one
+                    except KeyboardInterrupt:
+                        print(
+                            f"""\n===========================================\nValid: {len(valid)}, Invalid: {invalid}\nValid Codes: {', '.join(valid)}\n===========================================""")  # Exit the program
+                        time.sleep(1)
+                    except Exception as e:  # If the request fails
+                        # Tell the user an error occurred
+                        print(f" Error | {url} ")
 
-                if keyboard.is_pressed('ctrl+q'):
-                    exit()
-                if os.name == "nt":  # If the system is windows
-                    ctypes.windll.kernel32.SetConsoleTitleW(
-                        f"{len(valid)} Valid | {invalid} Invalid")  # Change the title
-                    print("")
-                else:  # If it is a unix system
-                    # Change the title
-                    print(
-                        f'\33]0;{len(valid)} Valid | {invalid} Invalid\a', end='', flush=True)
+                    if keyboard.is_pressed('ctrl+q'):
+                        exit()
+                    if os.name == "nt":  # If the system is windows
+                        ctypes.windll.kernel32.SetConsoleTitleW(
+                            f"{len(valid)} Valid | {invalid} Invalid")  # Change the title
+                        print("")
+                    else:  # If it is a unix system
+                        # Change the title
+                        print(
+                            f'\33]0;{len(valid)} Valid | {invalid} Invalid\a', end='', flush=True)
 
         # Tell the user the program finished
         print("\nThe end!")
