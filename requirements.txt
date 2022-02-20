@@ -2,3 +2,4 @@ requests
 discord_webhook
 colored
 numpy
+getpass

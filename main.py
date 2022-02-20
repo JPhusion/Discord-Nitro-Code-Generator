@@ -25,6 +25,8 @@ os.system('cls' if os.name == 'nt' else 'clear')
 
 username = getpass.getuser()
 
+start_time = time.time()
+
 try:  # Check if the requrements have been installed
     from discord_webhook import DiscordWebhook  # Try to import discord_webhook
 except ImportError:  # If it chould not be installed
@@ -92,10 +94,14 @@ class NitroGen:  # Initialise the class
         chars[:0] = string.ascii_letters + string.digits
 
         # generate codes faster than using random.choice
+        call_counter = 10
         found = False
         while True:
+            if call_counter / (time.time() - start_time) > 15:
+                time.sleep(0.5)
             for i in range(2):
-                pixels[0] = (0, 0, 0) if i % 2 == 0 else (0, 0, 255) if not found else (0, 255, 0)
+                pixels[0] = (0, 0, 0) if i % 2 == 0 else (
+                    0, 0, 255) if not found else (0, 255, 0)
                 c = numpy.random.choice(chars, size=[num, 19])
                 for s in c:  # Loop over the amount of codes to check
                     try:
@@ -105,6 +111,8 @@ class NitroGen:  # Initialise the class
 
                         result = self.quickChecker(
                             url, webhook)  # Check the codes
+
+                        call_counter += 1
 
                         if result:  # If the code was valid
                             # Add that code to the list of found codes
@@ -120,7 +128,7 @@ class NitroGen:  # Initialise the class
                         time.sleep(1)
                     except Exception as e:  # If the request fails
                         # Tell the user an error occurred
-                        print(f" Error | {url} ")
+                        print(f" Error | {url} ", e)
 
                     if keyboard.is_pressed('ctrl+q'):
                         exit()
@@ -148,7 +156,13 @@ class NitroGen:  # Initialise the class
     def quickChecker(self, nitro: str, notify=None):
         # Generate the request url
         url = f"https://discordapp.com/api/v9/entitlements/gift-codes/{nitro}?with_application=false&with_subscription_plan=true"
-        response = requests.get(url)  # Get the response from discord
+        response = requests.get(url=url)  # Get the response from discord
+
+        if "You are being rate limited" in response.text:
+            print("\nYou are being rate limited\n")
+            print(response.text)
+            print("\nChange your ip adress to bypass the rate limit")
+            exit()
 
         if response.status_code == 200:  # If the responce went through
             # Notify the user the code was valid
@@ -162,17 +176,21 @@ class NitroGen:  # Initialise the class
             if notify is not None:  # If a webhook has been added
                 DiscordWebhook(  # Send the message to discord letting the user know there has been a valid nitro code
                     url=url,
-                    content=f"Valid Nito Code detected! <@651705531261779988> \n{nitro}"
+                    content=f"Valid Nitro Code detected! <@651705531261779988> \n{nitro}"
                 ).execute()
 
             return True  # Tell the main function the code was found
 
         # If the responce got ignored or is invalid ( such as a 404 or 405 )
-        else:
+        elif response.status_code in [404, 405]:
             # Tell the user it tested a code and it was invalid
             print(f" Invalid | {nitro} ", flush=True,
                   end="" if os.name == 'nt' else "\n")
             return False  # Tell the main function there was not a code found
+        else:
+            print(f" Limited | {nitro} ", flush=True,
+                  end="" if os.name == 'nt' else "\n")
+            return False
 
 
 if __name__ == '__main__':
