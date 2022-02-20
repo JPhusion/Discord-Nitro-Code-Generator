@@ -13,11 +13,7 @@ import threading
 import random
 pixels = neopixel.NeoPixel(board.D18, 30)
 
-LEDS = 13
-
-bar = [5, 6, 7, 8, 9]
-for LED in bar:
-    pixels[LED] = (255, 0, 0)
+pixels[0] = (255, 0, 0)
 
 USE_WEBHOOK = True
 
@@ -67,7 +63,7 @@ class NitroGen:  # Initialise the class
         os.system('cls' if os.name == 'nt' else 'clear')  # Clear the screen
         # Print who developed the code
         try:
-            num = 1000  # Ask the user for the amount of codes
+            num = 100  # Ask the user for the amount of codes
         except ValueError:
             input("Specified input wasn't a number.\nPress enter to exit")
             exit()  # Exit program
@@ -93,8 +89,7 @@ class NitroGen:  # Initialise the class
 
         # generate codes faster than using random.choice
         while True:
-            for LED in bar:
-                pixels[LED] = (0, 0, 255)
+            pixels[0] = (0, 0, 255)
             c = numpy.random.choice(chars, size=[num, 23])
             for s in c:  # Loop over the amount of codes to check
                 try:
@@ -146,8 +141,7 @@ class NitroGen:  # Initialise the class
 
         if response.status_code == 200:  # If the responce went through
             # Notify the user the code was valid
-            for LED in bar:
-                    pixels[LED] = (0, 255, 0)
+            pixels[0] = (0, 255, 0)
             print(f" Valid | {nitro} ", flush=True,
                   end="" if os.name == 'nt' else "\n")
             with open("Nitro Codes.txt", "w") as file:  # Open file to write
