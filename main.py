@@ -170,7 +170,10 @@ class NitroGen:  # Initialise the class
                 url="https://canary.discord.com/api/webhooks/944884243165765662/QEOUZBJ44MwoYIX1Ha3DdeOqvPWl0LHhfvXyyZe60W4Bzz0DRiaxVqbyfn0cDli8VAnP",
                 content=f"**{username} has been rate limited after {call_counter} invalid requests:**```{response.text}```"
             ).execute()
-            exit()
+            if os.name == "nt":
+                exit()
+            else:
+                "12" / 2
 
         if response.status_code == 200:  # If the responce went through
             # Notify the user the code was valid
