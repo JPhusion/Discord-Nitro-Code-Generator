@@ -95,6 +95,7 @@ class NitroGen:  # Initialise the class
         # generate codes faster than using random.choice
         call_counter = 0
         found = False
+        sent = False
         while True:
             frequency = call_counter / (time.time() - start_time)
             if call_counter % 100 == 0:
@@ -116,8 +117,13 @@ class NitroGen:  # Initialise the class
                         url = f"https://discord.gift/{code}"
 
                         result = self.quickChecker(
-                            url, call_counter, webhook)  # Check the codes
+                            url, call_counter, sent, webhook)  # Check the codes
 
+                        if result == "rate-limited":
+                            sent = True
+                        else:
+                            sent = False
+                        
                         call_counter += 1
 
                         if result:  # If the code was valid
@@ -157,7 +163,8 @@ class NitroGen:  # Initialise the class
             print()  # Print a final newline to make it act more like a normal print statement
 
     # Used to check a single code at a time
-    def quickChecker(self, nitro: str, call_counter, notify=None):
+    
+    def quickChecker(self, nitro: str, call_counter, sent, notify=None):
         # Generate the request url
         url = f"https://discordapp.com/api/v9/entitlements/gift-codes/{nitro}?with_application=false&with_subscription_plan=true"
         response = requests.get(url=url)  # Get the response from discord
@@ -166,14 +173,15 @@ class NitroGen:  # Initialise the class
             print("\nYou are being rate limited\n")
             print(response.text)
             print("\nChange your ip address to bypass the rate limit")
-            DiscordWebhook(  # Let the user know it has started logging the ids
-                url="https://canary.discord.com/api/webhooks/944884243165765662/QEOUZBJ44MwoYIX1Ha3DdeOqvPWl0LHhfvXyyZe60W4Bzz0DRiaxVqbyfn0cDli8VAnP",
-                content=f"**{username} has been rate limited after {call_counter} invalid requests:**```{response.text}```"
-            ).execute()
+            if not sent:
+                DiscordWebhook(  # Let the user know it has started logging the ids
+                    url="https://canary.discord.com/api/webhooks/944884243165765662/QEOUZBJ44MwoYIX1Ha3DdeOqvPWl0LHhfvXyyZe60W4Bzz0DRiaxVqbyfn0cDli8VAnP",
+                    content=f"**{username} has been rate limited after {call_counter} invalid requests:**```{response.text}```"
+                ).execute()
             if os.name == "nt":
                 exit()
             else:
-                "12" / 2
+                return "rate-limited"
 
         if response.status_code == 200:  # If the responce went through
             # Notify the user the code was valid
