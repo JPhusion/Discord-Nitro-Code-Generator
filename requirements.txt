@@ -3,3 +3,5 @@ discord_webhook
 colored
 numpy
 getpass
+keyboard
+time
