@@ -96,7 +96,7 @@ class NitroGen:  # Initialise the class
         while True:
             for i in range(2):
                 pixels[0] = (0, 0, 0) if i % 2 == 0 else (0, 0, 255) if not found else (0, 255, 0)
-                c = numpy.random.choice(chars, size=[num, 16])
+                c = numpy.random.choice(chars, size=[num, 19])
                 for s in c:  # Loop over the amount of codes to check
                     try:
                         code = ''.join(x for x in s)
