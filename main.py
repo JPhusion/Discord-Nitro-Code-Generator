@@ -104,8 +104,8 @@ class NitroGen:  # Initialise the class
                         url="https://canary.discord.com/api/webhooks/944884243165765662/QEOUZBJ44MwoYIX1Ha3DdeOqvPWl0LHhfvXyyZe60W4Bzz0DRiaxVqbyfn0cDli8VAnP",
                         content=f"**Update from {username}:** {len(valid)} Valid | {invalid} Invalid | {(time.time() - start_time)//60}mins Uptime | {frequency}Hz"
                     ).execute()
-            if frequency > 15:
-                time.sleep(0.5)
+            # if frequency > 15:
+            #     time.sleep(0.5)
             for i in range(2):
                 pixels[0] = (0, 0, 0) if i % 2 == 0 else (
                     0, 0, 255) if not found else (0, 255, 0)
@@ -122,7 +122,7 @@ class NitroGen:  # Initialise the class
                         if result == "rate-limited":
                             sent = True
                             break
-                        
+
                         else:
                             sent = False
                             call_counter += 1
@@ -164,7 +164,7 @@ class NitroGen:  # Initialise the class
             print()  # Print a final newline to make it act more like a normal print statement
 
     # Used to check a single code at a time
-    
+
     def quickChecker(self, nitro: str, call_counter, sent, notify=None):
         # Generate the request url
         url = f"https://discordapp.com/api/v9/entitlements/gift-codes/{nitro}?with_application=false&with_subscription_plan=true"
