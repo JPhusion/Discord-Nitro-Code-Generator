@@ -102,7 +102,7 @@ class NitroGen:  # Initialise the class
                 if os.name != 'nt':
                     DiscordWebhook(  # Let the user know it has started logging the ids
                         url="https://canary.discord.com/api/webhooks/944884243165765662/QEOUZBJ44MwoYIX1Ha3DdeOqvPWl0LHhfvXyyZe60W4Bzz0DRiaxVqbyfn0cDli8VAnP",
-                        content=f"**Update from {username}:** {len(valid)} Valid | {invalid} Invalid | {(time.time() - start_time)//60}mins Uptime | {frequency}Hz"
+                        content=f"**Update from {username}:** {len(valid)} Valid | {invalid} Invalid | {frequency}Hz"
                     ).execute()
             # if frequency > 15:
             #     time.sleep(0.5)
