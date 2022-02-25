@@ -4,6 +4,8 @@ import os
 import time
 import getpass
 
+WEBHOOK = "https://canary.discord.com/api/webhooks/946873324812787762/WRXir5YLQRYPJjY3YyKWZO1WK7vDe80717WiXVR1WV03vrmqfvU7N2HwYf98n2IWWd1r"
+
 try:
     import board
     import neopixel
@@ -75,7 +77,7 @@ class NitroGen:  # Initialise the class
 
         if USE_WEBHOOK:
             # Get the webhook url, if the user does not wish to use a webhook the message will be an empty string
-            url = "https://canary.discord.com/api/webhooks/944884243165765662/QEOUZBJ44MwoYIX1Ha3DdeOqvPWl0LHhfvXyyZe60W4Bzz0DRiaxVqbyfn0cDli8VAnP"  # Get the answer
+            url = WEBHOOK  # Get the answer
             # If the url is empty make it be None insted
             webhook = url if url != "" else None
 
@@ -101,7 +103,7 @@ class NitroGen:  # Initialise the class
             if call_counter % 100 == 0 and not sent:
                 if os.name != 'nt':
                     DiscordWebhook(  # Let the user know it has started logging the ids
-                        url="https://canary.discord.com/api/webhooks/944884243165765662/QEOUZBJ44MwoYIX1Ha3DdeOqvPWl0LHhfvXyyZe60W4Bzz0DRiaxVqbyfn0cDli8VAnP",
+                        url=WEBHOOK,
                         content=f"**Update from {username}:** {len(valid)} Valid | {invalid} Invalid | {frequency}Hz"
                     ).execute()
             # if frequency > 15:
